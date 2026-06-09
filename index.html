@@ -515,6 +515,21 @@
   .form-success.show { display: flex; animation: fadeUp .5s ease; }
   .form-success svg { width: 26px; height: 26px; stroke: var(--forest); flex-shrink: 0; }
 
+  .form-error {
+    display: none;
+    background: rgba(196,98,45,0.08);
+    border: 1.5px solid rgba(196,98,45,0.35);
+    color: var(--terracotta);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    align-items: center;
+    gap: 12px;
+  }
+  .form-error.show { display: flex; animation: fadeUp .5s ease; }
+  .form-error svg { width: 26px; height: 26px; stroke: var(--terracotta); flex-shrink: 0; }
+
   /* ---------- Footer ---------- */
   .footer {
     background: var(--charcoal);
@@ -936,6 +951,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>
         <span>Thank you! Your request has been received. Our team will reach out to you shortly. 🌿</span>
       </div>
+      <div class="form-error" id="formError">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+        <span>Sorry, something went wrong sending your request. Please try again, or reach us on WhatsApp.</span>
+      </div>
 
       <form id="bookingForm" novalidate>
         <div class="form-row">
@@ -1033,6 +1052,14 @@
   <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm5.8 14.18c-.25.7-1.45 1.34-2 1.42-.53.08-1.18.11-1.9-.12-.44-.14-1-.33-1.73-.64-3.04-1.31-5.02-4.37-5.18-4.57-.15-.2-1.24-1.65-1.24-3.15s.79-2.24 1.07-2.54c.28-.3.61-.38.81-.38l.58.01c.19.01.44-.07.69.53.25.6.85 2.08.92 2.23.08.15.13.33.02.53-.1.2-.15.33-.3.5-.15.18-.32.4-.46.53-.15.15-.3.31-.13.61.18.3.78 1.29 1.68 2.09 1.15 1.03 2.12 1.35 2.42 1.5.3.15.48.13.65-.08.18-.2.75-.87.95-1.17.2-.3.4-.25.67-.15.27.1 1.71.81 2.01.96.3.15.49.22.56.35.08.13.08.73-.17 1.43Z"/></svg>
 </a>
 
+<!-- Supabase client (publishable key — safe for client-side; table is insert-only via RLS) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = 'https://loliotvwawfjjfkzklmr.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_GI17v3vANimCTZ0f_p-SBw_ZheKGFkF';
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+</script>
+
 <script>
   /* ---------- Navbar scroll state ---------- */
   const nav = document.getElementById('nav');
@@ -1104,19 +1131,50 @@
     });
   });
 
-  form.addEventListener('submit', (e) => {
+  const errorBox = document.getElementById('formError');
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const submitLabel = submitBtn.textContent;
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    success.classList.remove('show');
+    errorBox.classList.remove('show');
+
     let allValid = true;
     fields.forEach(input => { if (!validateField(input)) allValid = false; });
 
-    if (allValid) {
+    if (!allValid) {
+      const firstInvalid = form.querySelector('.field.invalid input, .field.invalid select, .field.invalid textarea');
+      if (firstInvalid) firstInvalid.focus();
+      return;
+    }
+
+    const [name, email, phone, service, date, message] = fields;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+
+    try {
+      const { error } = await sb.from('appointments').insert({
+        full_name: name.value.trim(),
+        email: email.value.trim(),
+        phone: phone.value.trim(),
+        service: service.value,
+        preferred_date: date.value || null,
+        message: message.value.trim()
+      });
+      if (error) throw error;
+
       success.classList.add('show');
       form.reset();
       success.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      setTimeout(() => success.classList.remove('show'), 7000);
-    } else {
-      const firstInvalid = form.querySelector('.field.invalid input, .field.invalid select, .field.invalid textarea');
-      if (firstInvalid) firstInvalid.focus();
+      setTimeout(() => success.classList.remove('show'), 8000);
+    } catch (err) {
+      console.error('Supabase insert failed:', err);
+      errorBox.classList.add('show');
+      errorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = submitLabel;
     }
   });
 </script>
