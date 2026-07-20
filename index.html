@@ -376,8 +376,8 @@ section{position:relative;}
 
 /* Book */
 .book{background:#fff;}
-.book-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:64px;align-items:start;}
-.book-left h2{font-size:clamp(2rem,4vw,2.8rem);margin-bottom:18px;}
+.book-grid{display:flex;flex-direction:column;gap:36px;max-width:640px;margin:0 auto;}
+.book-left h2{font-size:clamp(1.8rem,4vw,2.4rem);margin-bottom:18px;}
 .book-left p{color:var(--muted);margin-bottom:28px;font-size:1.05rem;}
 .book-feature{display:flex;align-items:center;gap:12px;margin-bottom:14px;color:var(--charcoal);}
 .book-feature svg{width:22px;height:22px;stroke:var(--forest);flex-shrink:0;}
@@ -488,7 +488,6 @@ section{position:relative;}
   .about-profile-pic{width:110px;height:110px;}
   .cards,.t-cards,.ebook-grid{grid-template-columns:1fr;}
   .why-grid{grid-template-columns:1fr;gap:24px;}
-  .book-grid{grid-template-columns:1fr;gap:44px;}
   .footer-grid{grid-template-columns:1fr 1fr;gap:36px;}
   .phil-grid{grid-template-columns:1fr;}
 }
@@ -557,15 +556,10 @@ section{position:relative;}
   </a>
 </header>
 
-<!-- wave: hero → about -->
-<div class="wave" style="background:#222220"><svg viewBox="0 0 1440 56" preserveAspectRatio="none" height="56" xmlns="http://www.w3.org/2000/svg"><path d="M0 56 C360 0 1080 0 1440 56 L1440 0 L0 0 Z" fill="var(--offwhite)"/></svg></div>
 
 <!-- ABOUT -->
 <section class="section-pad" id="about" style="background:var(--offwhite);">
   <div class="container">
-    <div class="center reveal">
-      <h2 class="section-title">About</h2>
-    </div>
     <div class="about-sections">
 
       <!-- About Ayurveda -->
@@ -657,14 +651,14 @@ section{position:relative;}
     <div class="book-left reveal">
       <p class="eyebrow">Book an Appointment</p>
       <h2>Begin Your Healing Journey</h2>
-      <p>Take the first step toward lasting balance. Share a few details and I will reach out to design a wellness path that's truly yours. No pressure, just genuine care.</p>
+      <p>Take the first step toward lasting balance. Share a few details and I will reach out to design a wellness path that's truly yours.</p>
       <div class="book-feature">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
         <span>Free online consultation</span>
       </div>
       <div class="book-feature" style="margin-bottom:30px;">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-        <span>Personalized, judgment-free guidance</span>
+        <span>Personalized guidance</span>
       </div>
     </div>
     <div class="form-card reveal">
@@ -694,14 +688,6 @@ section{position:relative;}
             <label for="phone">Phone</label>
             <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" />
             <span class="error-msg">Please enter a valid phone number.</span>
-          </div>
-          <div class="field">
-            <label for="service">Service</label>
-            <select id="service" name="service">
-              <option value="">Select a service</option>
-              <option>Diet, Nutrition &amp; Lifestyle Guidance</option>
-            </select>
-            <span class="error-msg">Please choose a service.</span>
           </div>
         </div>
         <div class="field">
