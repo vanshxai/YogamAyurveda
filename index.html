@@ -296,26 +296,32 @@ section{position:relative;}
 .card-modal-btn:hover{gap:14px;color:var(--terracotta);}
 
 /* Wide single-service card */
-.service-wide{display:flex;align-items:stretch;background:#fff;border-radius:var(--radius);border:1px solid rgba(45,80,22,.07);box-shadow:0 4px 20px rgba(28,28,28,.05);overflow:hidden;max-width:840px;margin:60px auto 0;transition:box-shadow .4s ease;}
-.service-wide:hover{box-shadow:0 20px 56px rgba(45,80,22,.12);}
-.service-wide-img{width:44%;flex-shrink:0;overflow:hidden;}
-.service-wide-img img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease-out);}
-.service-wide:hover .service-wide-img img{transform:scale(1.06);}
-.service-wide-body{flex:1;padding:48px 44px;display:flex;flex-direction:column;justify-content:center;gap:22px;}
-.service-wide-body .card-icon{position:static;width:58px;height:58px;border-radius:14px;background:#fff;border:1px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(45,80,22,.1);}
-.service-wide-body h3{font-size:1.8rem;margin:0;line-height:1.25;}
-.service-wide-body p{color:var(--muted);font-size:1rem;margin:0;line-height:1.8;}
-@media(max-width:680px){.service-wide{flex-direction:column;}.service-wide-img{width:100%;height:220px;}}
+/* Service split card */
+.service-split{display:flex;align-items:stretch;background:#fff;border-radius:var(--radius);border:1px solid rgba(45,80,22,.08);box-shadow:0 4px 20px rgba(28,28,28,.05);max-width:900px;margin:48px auto 0;}
+.service-split-left{flex:1;padding:44px 40px;}
+.service-split-divider{width:1px;background:rgba(45,80,22,.1);margin:36px 0;flex-shrink:0;}
+.service-split-right{flex:1;padding:44px 40px;}
+.service-split-label{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--forest);margin-bottom:18px;display:block;}
+.service-split-name{font-size:1.15rem;font-weight:600;color:var(--charcoal);margin-bottom:10px;}
+.service-split-tag{display:inline-block;background:rgba(45,80,22,.07);color:var(--forest);font-size:.78rem;font-weight:600;padding:4px 12px;border-radius:999px;margin-bottom:18px;}
+.service-split-desc{color:var(--muted);font-size:.95rem;line-height:1.8;margin-bottom:28px;}
+.service-split-why-item{margin-bottom:26px;}
+.service-split-why-item:last-child{margin-bottom:0;}
+.service-split-why-item h4{font-size:.97rem;font-weight:600;color:var(--charcoal);margin-bottom:6px;}
+.service-split-why-item p{color:var(--muted);font-size:.9rem;line-height:1.7;margin:0;}
+@media(max-width:680px){.service-split{flex-direction:column;}.service-split-divider{width:auto;height:1px;margin:0 36px;}}
 
 /* Service modals */
 .modal-overlay{position:fixed;inset:0;background:rgba(28,28,28,.5);backdrop-filter:blur(4px);z-index:500;opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s;}
 .modal-overlay.open{opacity:1;visibility:visible;}
 .modal-drawer{position:fixed;bottom:0;left:0;right:0;max-height:88vh;overflow-y:auto;background:#fff;border-radius:28px 28px 0 0;z-index:501;transform:translateY(100%);transition:transform .4s cubic-bezier(.2,.7,.2,1);}
+@media(max-width:759px){
+  .modal-overlay.open .modal-drawer{transform:translateY(0);}
+}
 @media(min-width:760px){
   .modal-drawer{top:50%;left:50%;right:auto;bottom:auto;width:min(680px,94vw);border-radius:var(--radius);transform:translate(-50%,-46%) scale(.96);max-height:92vh;}
   .modal-overlay.open .modal-drawer{transform:translate(-50%,-50%) scale(1);}
 }
-.modal-overlay.open .modal-drawer{transform:translateY(0);}
 .modal-inner{padding:40px;}
 .modal-close{position:absolute;top:18px;right:20px;background:rgba(28,28,28,.07);border:none;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--charcoal);}
 .modal-inner h2{font-size:2rem;margin-bottom:6px;}
@@ -618,26 +624,38 @@ section{position:relative;}
 <section class="section-pad services" id="services">
   <div class="container">
     <div class="center reveal">
-      <p class="eyebrow">Our Services</p>
       <h2 class="section-title">Services Offered</h2>
     </div>
-    <div class="service-wide reveal">
-      <div class="service-wide-img">
-        <img src="images/service-diet.jpg" alt="Fresh wholefood Ayurvedic nutrition bowl" loading="lazy" />
-      </div>
-      <div class="service-wide-body">
-        <div class="card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor">
-            <path d="M12 2c3 4 6 6 6 11a6 6 0 0 1-12 0c0-5 3-7 6-11Z"/><path d="M12 8c-1.5 2-3 3.5-3 6"/>
-          </svg>
-        </div>
-        <h3>Diet, Nutrition &amp; Lifestyle Guidance</h3>
-        <p>Sustainable, season-aware nutrition and daily routines (dinacharya) crafted to keep your body in lasting balance.</p>
+    <div class="service-split reveal">
+
+      <!-- Left: Service details -->
+      <div class="service-split-left">
+        <span class="service-split-label">Ayurvedic Consultations</span>
+        <p class="service-split-name">Diet, Nutrition &amp; Lifestyle Guidance</p>
+        <span class="service-split-tag">Personalized dosha assessment</span>
+        <p class="service-split-desc">Sustainable, season-aware nutrition and daily routines (dinacharya) crafted to keep your body in lasting balance.</p>
         <button class="card-modal-btn" data-modal="modal-diet" data-service="Diet, Nutrition &amp; Lifestyle Guidance">
           Learn More
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </button>
       </div>
+
+      <!-- Divider -->
+      <div class="service-split-divider"></div>
+
+      <!-- Right: Why Yogam -->
+      <div class="service-split-right">
+        <span class="service-split-label">Why Yogam Ayurveda</span>
+        <div class="service-split-why-item">
+          <h4>Personalized Treatment Plans</h4>
+          <p>Every protocol is tailored to your unique constitution and goals.</p>
+        </div>
+        <div class="service-split-why-item">
+          <h4>Compassionate Care</h4>
+          <p>Supporting you with warmth, patience and respect.</p>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
