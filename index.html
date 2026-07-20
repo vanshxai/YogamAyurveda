@@ -229,13 +229,13 @@ section{position:relative;}
 .phil-item p{color:rgba(255,255,255,.6);font-size:.93rem;line-height:1.7;}
 
 /* About */
-.about-grid{display:grid;grid-template-columns:.85fr 1fr;gap:70px;align-items:start;}
-.about-photo{position:relative;width:100%;max-width:420px;}
-.about-photo img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:220px 220px 18px 18px;box-shadow:var(--shadow-card);}
-.about-photo::after{content:'';position:absolute;inset:-10px;border:1.5px solid var(--gold);border-radius:230px 230px 26px 26px;pointer-events:none;}
-.about-lotus{position:absolute;bottom:-22px;right:-22px;width:96px;height:96px;background:var(--offwhite);border-radius:50%;padding:14px;box-shadow:var(--shadow-soft);}
-.about-lotus svg{width:100%;height:100%;}
-.about-text p{color:var(--muted);margin-bottom:16px;}
+.about-sections{display:flex;flex-direction:column;gap:44px;max-width:800px;margin:48px auto 0;}
+.about-sub-heading{font-size:.82rem;font-weight:700;color:var(--forest);margin-bottom:14px;text-transform:uppercase;letter-spacing:.12em;}
+.about-sub p{color:var(--muted);margin-bottom:12px;font-size:.97rem;line-height:1.8;}
+.about-sub p:last-child{margin-bottom:0;}
+.about-practitioner{display:flex;gap:32px;align-items:flex-start;}
+.about-profile-pic{flex-shrink:0;width:148px;height:148px;border-radius:50%;overflow:hidden;border:2px solid rgba(201,168,76,.3);box-shadow:0 4px 20px rgba(45,80,22,.12);}
+.about-profile-pic img{width:100%;height:100%;object-fit:cover;object-position:top center;}
 .text-link{display:inline-flex;align-items:center;gap:8px;color:var(--terracotta);font-weight:600;margin-top:8px;transition:gap .25s ease;}
 .text-link:hover{gap:14px;}
 
@@ -483,8 +483,8 @@ section{position:relative;}
 
 /* Responsive */
 @media(max-width:940px){
-  .about-grid{grid-template-columns:1fr;gap:44px;}
-  .about-photo{max-width:100%;}
+  .about-practitioner{flex-direction:column;}
+  .about-profile-pic{width:110px;height:110px;}
   .cards,.t-cards,.ebook-grid{grid-template-columns:1fr;}
   .why-grid{grid-template-columns:1fr;gap:28px;}
   .book-grid{grid-template-columns:1fr;gap:44px;}
@@ -561,45 +561,52 @@ section{position:relative;}
 
 <!-- ABOUT -->
 <section class="section-pad" id="about" style="background:var(--offwhite);">
-  <div class="container about-grid">
-    <div style="display:flex;justify-content:center;" class="reveal-left">
-      <div class="about-photo">
-        <img src="images/practitioner.jpg" alt="YogamAyurveda practitioner" loading="lazy" />
-        <div class="about-lotus">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <g stroke="#C9A84C" stroke-width="2" fill="rgba(201,168,76,0.10)">
-              <path d="M50 50 C44 28,44 20,50 10 C56 20,56 28,50 50 Z"/>
-              <path d="M50 50 C40 30,30 26,22 24 C28 36,38 44,50 50 Z"/>
-              <path d="M50 50 C60 30,70 26,78 24 C72 36,62 44,50 50 Z"/>
-              <path d="M50 50 C34 38,24 40,16 44 C28 52,40 52,50 50 Z"/>
-              <path d="M50 50 C66 38,76 40,84 44 C72 52,60 52,50 50 Z"/>
-            </g>
-            <circle cx="50" cy="50" r="4" fill="#C4622D"/>
-          </svg>
-        </div>
-      </div>
+  <div class="container">
+    <div class="center reveal">
+      <h2 class="section-title">About</h2>
     </div>
-    <div class="about-text reveal-right">
-      <p class="eyebrow">About YogamAyurveda</p>
-      <h2 class="section-title">About Ayurveda</h2>
-      <p>Ayurveda is a holistic medical science that has been practiced in India for over 5,000 years and is now embraced worldwide. More than a system for treating disease, Ayurveda is a way of living, one that emphasizes lifestyle choices to prevent illness before it arises.</p>
-      <p>It teaches you to understand your body and mind, to recognize how subtle changes affect both, and to use that awareness to cultivate lasting balance and wellbeing.</p>
-      <p>At YogamAyurveda, I honor this ancient lineage by caring for the whole person, nurturing harmony between mind, body, and spirit rather than focusing solely on isolated symptoms.</p>
-      <p>My path toward holistic wellness was established through deep academic training at <a href="https://ayurveda.com/" target="_blank" rel="noopener" class="text-link-inline">The Ayurvedic Institute</a>. There, I studied under the renowned acharya Dr. Vasant Lad and achieved certification as an Ayurvedic Health Counselor.</p>
-      <div class="cert-logos">
-        <div class="cert-item">
-          <div class="cert-img-wrap">
-            <img src="images/cert-ayurvedic-institute.jpg" alt="The Ayurvedic Institute: AHC &amp; AurYoga YTT 200" />
+    <div class="about-sections">
+
+      <!-- About Ayurveda -->
+      <div class="about-sub reveal">
+        <p class="about-sub-heading">About Ayurveda</p>
+        <p>Ayurveda is a holistic medical science that has been practiced in India for over 5,000 years and is now embraced worldwide. More than a system for treating disease, Ayurveda is a way of living, one that emphasizes lifestyle choices to prevent illness before it arises.</p>
+        <p>It teaches you to understand your body and mind, to recognize how subtle changes affect both, and to use that awareness to cultivate lasting balance and wellbeing.</p>
+      </div>
+
+      <!-- About Yogam Ayurveda -->
+      <div class="about-sub reveal">
+        <p class="about-sub-heading">About Yogam Ayurveda</p>
+        <p>At YogamAyurveda, this timeless tradition guides a holistic approach, nurturing balance between mind, body, and spirit instead of treating symptoms alone.</p>
+      </div>
+
+      <!-- About Shital Naik -->
+      <div class="about-sub reveal">
+        <p class="about-sub-heading">About Shital Naik</p>
+        <div class="about-practitioner">
+          <div class="about-profile-pic">
+            <img src="images/practitioner.jpg" alt="Shital Naik" loading="lazy" />
           </div>
-          <span><strong>AHC &amp; AurYoga YTT 200</strong>The Ayurvedic Institute &middot; w/ Dr. Vasant Lad</span>
-        </div>
-        <div class="cert-item">
-          <div class="cert-img-wrap">
-            <img src="images/cert-namacb-cahc.jpg" alt="NAMACB: Certified Ayurvedic Health Counselor CAHC" />
+          <div>
+            <p>Shital's path toward holistic wellness was established through deep academic training at <a href="https://ayurveda.com/" target="_blank" rel="noopener" class="text-link-inline">The Ayurvedic Institute</a>. There, she studied under the renowned acharya Dr. Vasant Lad and achieved certification as an Ayurvedic Health Counselor.</p>
+            <div class="cert-logos" style="margin-top:16px;">
+              <div class="cert-item">
+                <div class="cert-img-wrap">
+                  <img src="images/cert-ayurvedic-institute.jpg" alt="The Ayurvedic Institute: AHC &amp; AurYoga YTT 200" />
+                </div>
+                <span><strong>AHC &amp; AurYoga YTT 200</strong>The Ayurvedic Institute &middot; w/ Dr. Vasant Lad</span>
+              </div>
+              <div class="cert-item">
+                <div class="cert-img-wrap">
+                  <img src="images/cert-namacb-cahc.jpg" alt="NAMACB: Certified Ayurvedic Health Counselor CAHC" />
+                </div>
+                <span><strong>Ayurvedic Health Counselor (CAHC)</strong>NAMACB</span>
+              </div>
+            </div>
           </div>
-          <span><strong>Ayurvedic Health Counselor (CAHC)</strong>NAMACB</span>
         </div>
       </div>
+
     </div>
   </div>
 </section>
